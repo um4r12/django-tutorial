@@ -1,0 +1,13 @@
+{% comment %} it is good practice to have a template namespace that is why there is a 'polls' subdir {% endcomment %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        {% comment %} bad to hard-code url like below, tightly coupled {% endcomment %}
+        {% comment %} <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> {% endcomment %}
+        {% comment %} intead, we can look up url definition from polls.urls and compiles it accordingly  {% endcomment %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
